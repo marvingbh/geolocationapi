@@ -29,6 +29,7 @@ namespace GeoApi.Controllers
             string path = "Database/GeoLite2-Country.mmdb";
             using (var reader = new Reader(path))
             {
+                Console.WriteLine(Request.Headers["HTTP_X_FORWARDED_FOR"]);
                 Console.WriteLine(_accessor.HttpContext.Connection.RemoteIpAddress.ToString());
                 Console.WriteLine(HttpContext.Connection.RemoteIpAddress.ToString());
                 var data = reader.Find<GeoData>(_accessor.HttpContext.Connection.RemoteIpAddress);
