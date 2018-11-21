@@ -37,10 +37,7 @@ namespace GeoApi.Controllers
             Console.WriteLine("fim Headers -----------------------");
             using (var reader = new Reader(path))
             {
-                Console.WriteLine(HttpContext.Request.Headers["X-Forwarded-For"][0]);
-                Console.WriteLine(_accessor.HttpContext.Connection.RemoteIpAddress.ToString());
-                Console.WriteLine(HttpContext.Connection.RemoteIpAddress.ToString());
-                var data = reader.Find<GeoData>(_accessor.HttpContext.Connection.RemoteIpAddress);
+                var data = reader.Find<GeoData>(IPAddress.Parse(HttpContext.Request.Headers["X-Forwarded-For"][0]));
                 return Ok(data??new GeoData());
             }
         }
