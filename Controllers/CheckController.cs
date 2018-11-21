@@ -24,6 +24,7 @@ namespace GeoApi.Controllers
 
         // GET api/Check
         [HttpGet]
+        [ValidateAntiForgeryToken]
         public ActionResult<GeoData> Check()
         {
             string path = "Database/GeoLite2-Country.mmdb";
