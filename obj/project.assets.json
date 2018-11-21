@@ -2,6 +2,15 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v2.1": {
+      "MaxMind.Db/2.4.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/MaxMind.Db.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/MaxMind.Db.dll": {}
+        }
+      },
       "Microsoft.AspNet.WebApi.Client/5.2.6": {
         "type": "package",
         "dependencies": {
@@ -4337,6 +4346,22 @@
     }
   },
   "libraries": {
+    "MaxMind.Db/2.4.0": {
+      "sha512": "kxVhCQM3AtHDOa2glAfIP7jU5fJ+35lmEZkZDor+QZoS6UXyG3wRttSbHSC5BshLHFnpAwo58r2J9UxtBHGDAw==",
+      "type": "package",
+      "path": "maxmind.db/2.4.0",
+      "files": [
+        ".signature.p7s",
+        "lib/net45/MaxMind.Db.dll",
+        "lib/net45/MaxMind.Db.xml",
+        "lib/netstandard1.4/MaxMind.Db.dll",
+        "lib/netstandard1.4/MaxMind.Db.xml",
+        "lib/netstandard2.0/MaxMind.Db.dll",
+        "lib/netstandard2.0/MaxMind.Db.xml",
+        "maxmind.db.2.4.0.nupkg.sha512",
+        "maxmind.db.nuspec"
+      ]
+    },
     "Microsoft.AspNet.WebApi.Client/5.2.6": {
       "sha512": "rMDlyePoxggkmN/qgha1+BR2Uy+dOr38xKCQOPfVNKGY07R2nYJGMTKJFE1XFgwD70RYUNazf2fqutjJF18XgQ==",
       "type": "package",
@@ -11495,6 +11520,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
+      "MaxMind.Db >= 2.4.0",
       "Microsoft.AspNetCore.App >= 2.1.1",
       "Microsoft.NETCore.App >= 2.1.0"
     ]
@@ -11544,6 +11570,10 @@
     "frameworks": {
       "netcoreapp2.1": {
         "dependencies": {
+          "MaxMind.Db": {
+            "target": "Package",
+            "version": "[2.4.0, )"
+          },
           "Microsoft.AspNetCore.App": {
             "suppressParent": "All",
             "target": "Package",
