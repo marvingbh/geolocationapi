@@ -5,6 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Database\GeoLite2-Country.mmdb" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Database\GeoLite2-Country.mmdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  
+  <ItemGroup>
     <Folder Include="wwwroot\" />
     <Folder Include="Database\" />
   </ItemGroup>
