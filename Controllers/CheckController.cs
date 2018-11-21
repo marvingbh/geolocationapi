@@ -26,7 +26,7 @@ namespace GeoApi.Controllers
         [HttpGet]
         public ActionResult<GeoData> Check()
         {
-            string path = Path.Combine(Environment.CurrentDirectory, "Database\\GeoLite2-Country.mmdb");
+            string path = "\\Database\\GeoLite2-Country.mmdb";
             using (var reader = new Reader(path))
             {
                 var data = reader.Find<GeoData>(_accessor.HttpContext.Connection.RemoteIpAddress);
