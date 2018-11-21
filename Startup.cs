@@ -34,6 +34,7 @@ namespace geoapi
                 options.ForwardedHeaders = 
                     ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
             });
+            services.AddCors();
             // services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
