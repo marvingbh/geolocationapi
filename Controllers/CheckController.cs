@@ -27,9 +27,17 @@ namespace GeoApi.Controllers
         public ActionResult<GeoData> Check()
         {
             string path = "Database/GeoLite2-Country.mmdb";
+
+            Console.WriteLine("Headers -----------------------");
+            foreach (var header in HttpContext.Request.Headers)
+            {
+                Console.WriteLine($"{header.Key} - {header.Value}");
+            }
+
+            Console.WriteLine("fim Headers -----------------------");
             using (var reader = new Reader(path))
             {
-                Console.WriteLine(Context.Request.Headers["X-Forwarded-For"][0]);
+                Console.WriteLine(HttpContext.Request.Headers["X-Forwarded-For"][0]);
                 Console.WriteLine(_accessor.HttpContext.Connection.RemoteIpAddress.ToString());
                 Console.WriteLine(HttpContext.Connection.RemoteIpAddress.ToString());
                 var data = reader.Find<GeoData>(_accessor.HttpContext.Connection.RemoteIpAddress);
