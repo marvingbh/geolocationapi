@@ -30,6 +30,7 @@ namespace GeoApi.Controllers
             using (var reader = new Reader(path))
             {
                 Console.WriteLine(_accessor.HttpContext.Connection.RemoteIpAddress.ToString());
+                Console.WriteLine(HttpContext.Connection.RemoteIpAddress.ToString());
                 var data = reader.Find<GeoData>(_accessor.HttpContext.Connection.RemoteIpAddress);
                 return Ok(data??new GeoData());
             }
