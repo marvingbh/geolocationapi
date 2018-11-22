@@ -47,10 +47,7 @@ namespace geoapi
             {
                 app.UseHsts();
             }
-            app.UseCors(builder => builder.WithOrigins("https://shop.swingcatalyst.com", 
-                "http://shop.swingcatalyst.com", 
-                "https://shop-world.swingcatalyst.com", 
-                "http://shop-world.swingcatalyst.com"));
+            app.UseCors(builder => builder.AllowAnyOrigin() );
 
             app.UseHttpsRedirection();
             app.UseMvc();
