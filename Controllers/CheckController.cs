@@ -17,18 +17,18 @@ namespace GeoApi.Controllers
     [ApiController]
     public class CheckController : ControllerBase
     {
-        private IGeoDataReader _accessor;
+        private readonly IGeoDataReader _geoDataReader;
 
-        public CheckController(IGeoDataReader accessor)
+        public CheckController(IGeoDataReader geoDataReader)
         {
-            _accessor = accessor;
+            _geoDataReader = geoDataReader;
         }
 
         // GET api/Check
         [HttpGet]
         public async Task<ActionResult<GeoData>> Check()
         {
-            var data = await _accessor.Check(HttpContext);
+            var data = await _geoDataReader.Check(HttpContext);
             return Ok(data ?? new GeoData());
         }
 
