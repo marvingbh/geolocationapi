@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using geoapi.Readers;
+using GeoApi.Controllers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -28,14 +30,8 @@ namespace geoapi
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddHttpContextAccessor();
-            services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
-            services.Configure<ForwardedHeadersOptions>(options =>
-            {
-                options.ForwardedHeaders = 
-                    ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
-            });
             services.AddCors();
-            // services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<IGeoDataReader, GeoDataReader>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,7 +47,10 @@ namespace geoapi
             {
                 app.UseHsts();
             }
-            app.UseCors(builder => builder.WithOrigins("https://shop.swingcatalyst.com", "http://shop.swingcatalyst.com", "https://shop-world.swingcatalyst.com", "http://shop-world.swingcatalyst.com"));
+            app.UseCors(builder => builder.WithOrigins("https://shop.swingcatalyst.com", 
+                "http://shop.swingcatalyst.com", 
+                "https://shop-world.swingcatalyst.com", 
+                "http://shop-world.swingcatalyst.com"));
 
             app.UseHttpsRedirection();
             app.UseMvc();

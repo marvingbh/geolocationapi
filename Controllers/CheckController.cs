@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using geoapi.Model;
+using geoapi.Readers;
 using MaxMind.Db;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,95 +17,27 @@ namespace GeoApi.Controllers
     [ApiController]
     public class CheckController : ControllerBase
     {
-        private IHttpContextAccessor _accessor;
+        private IGeoDataReader _accessor;
 
-        public CheckController(IHttpContextAccessor accessor)
+        public CheckController(IGeoDataReader accessor)
         {
             _accessor = accessor;
         }
 
         // GET api/Check
         [HttpGet]
-        public ActionResult<GeoData> Check()
+        public async Task<ActionResult<GeoData>> Check()
         {
-            string path = "Database/GeoLite2-Country.mmdb";
-
-            Console.WriteLine("Headers -----------------------");
-            foreach (var header in HttpContext.Request.Headers)
-            {
-                Console.WriteLine($"{header.Key} - {header.Value}");
-            }
-
-            Console.WriteLine("fim Headers -----------------------");
-            using (var reader = new Reader(path))
-            {
-                var data = reader.Find<GeoData>(IPAddress.Parse(HttpContext.Request.Headers["X-Forwarded-For"][0].Split(':')[0]));
-                return Ok(data??new GeoData());
-            }
+            var data = await _accessor.Check(HttpContext);
+            return Ok(data ?? new GeoData());
         }
+
     }
 
+   
 
-
-    public class GeoData
-    {
-        public GeoData()
-        {
-                
-        }
-        [MaxMind.Db.Constructor]
-        public GeoData(Continent continent, Country country, Registered_Country registered_country)
-        {
-            this.continent = continent;
-            this.country = country;
-            this.registered_country = registered_country;
-        }
-
-        public Continent continent { get; set; }
-        public Country country { get; set; }
-        public Registered_Country registered_country { get; set; }
-    }
-
-    public class Continent
-    {
-        [MaxMind.Db.Constructor]
-        public Continent(string code, Int64 geoname_id)
-        {
-            this.code = code;
-            this.geoname_id = geoname_id;
-        }
-
-        public string code { get; set; }
-        public Int64 geoname_id { get; set; }
-    }
 
     
-    public class Country
-    {
-        [MaxMind.Db.Constructor]
-        public Country(Int64 geoname_id, string iso_code)
-        {
-            this.geoname_id = geoname_id;
-            this.iso_code = iso_code;
-        }
-
-        public Int64 geoname_id { get; set; }
-        public string iso_code { get; set; }
-    }
-
-    public class Registered_Country
-    {
-        [MaxMind.Db.Constructor]
-        public Registered_Country(Int64 geoname_id, string iso_code)
-        {
-            this.geoname_id = geoname_id;
-            this.iso_code = iso_code;
-        }
-
-        public Int64 geoname_id { get; set; }
-        public string iso_code { get; set; }
-    }
-
     
 
 }
