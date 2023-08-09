@@ -9,6 +9,7 @@ using geoapi.Readers;
 using MaxMind.Db;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace GeoApi.Controllers
