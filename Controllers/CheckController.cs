@@ -26,10 +26,20 @@ namespace GeoApi.Controllers
 
         // GET api/Check
         [HttpGet]
-        public async Task<ActionResult<GeoData>> Check()
+        public async Task<IActionResult> Check(string callback)
         {
             var data = await _geoDataReader.Check(HttpContext);
-            return Ok(data ?? new GeoData());
+            
+            if (string.IsNullOrWhiteSpace(callback))
+            {
+                return Ok(data ?? new GeoData());
+            }
+            else
+            {
+                var json = JsonConvert.SerializeObject(data ?? new GeoData());
+                var jsonp = $"{callback}({json});";
+                return Content(jsonp, "application/javascript");
+            }
         }
 
     }
