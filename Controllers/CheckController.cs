@@ -44,7 +44,7 @@ namespace GeoApi.Controllers
         }
 
         [HttpGet("{ipAddress}")]
-        public async Task<IActionResult> CheckIp(string ipAddress)
+        public async Task<IActionResult> CheckIp([FromRoute]string ipAddress, [FromQuery]string callback)
         {
             var data = await _geoDataReader.Check(ipAddress);
             

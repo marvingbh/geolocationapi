@@ -27,7 +27,7 @@ namespace geoapi.Readers
 
         public async Task<GeoData> Check(string ipAddress)
         {
-            var data = reader.Find<GeoData>(ipAddress);
+            var data = reader.Find<GeoData>(IPAddress.Parse(ipAddress));
             return data ?? new GeoData();
         }
 
