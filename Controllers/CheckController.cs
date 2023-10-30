@@ -43,6 +43,23 @@ namespace GeoApi.Controllers
             }
         }
 
+        [HttpGet("{ipAddress}")]
+        public async Task<IActionResult> CheckIp(string ipAddress)
+        {
+            var data = await _geoDataReader.Check(ipAddress);
+            
+            if (string.IsNullOrWhiteSpace(callback))
+            {
+                return Ok(data ?? new GeoData());
+            }
+            else
+            {
+                var json = JsonConvert.SerializeObject(data ?? new GeoData());
+                var jsonp = $"{callback}({json});";
+                return Content(jsonp, "application/javascript");
+            }
+        }
+
     }
 
    

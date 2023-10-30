@@ -25,6 +25,12 @@ namespace geoapi.Readers
             return data ?? new GeoData();
         }
 
+        public async Task<GeoData> Check(string ipAddress)
+        {
+            var data = reader.Find<GeoData>(ipAddress);
+            return data ?? new GeoData();
+        }
+
         public void Dispose()
         {
             reader?.Dispose();

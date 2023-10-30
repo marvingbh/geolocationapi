@@ -8,5 +8,6 @@ namespace geoapi.Readers
     public interface IGeoDataReader
     {
         Task<GeoData> Check(HttpContext context);
+        Task<GeoData> Check(string ipAddress);
     }
 }
